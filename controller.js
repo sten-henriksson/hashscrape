@@ -31,3 +31,8 @@ exports.getnohash = async function getnohash() {
     });
     return a
 }
+exports.getall = async function getnohash() {
+    let a = await model.movieList.findAll({
+    });
+    return a
+}

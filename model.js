@@ -7,12 +7,19 @@ const sequelize = new Sequelize('movies', 'root', 'root', {
     logging: msg => console.log(msg.magenta)
 });
 async function run() {
+    await sleep(1000)
     try {
         await sequelize.authenticate();
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
 }
+exports.run =run()
+function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  } 
 run()
 const movieList = sequelize.define('movieList', {
     // Model attributes are defined here
@@ -26,7 +33,6 @@ const movieList = sequelize.define('movieList', {
     },
     path: {
         type: DataTypes.STRING,
-
     },
     magnet: {
         type: DataTypes.TEXT,

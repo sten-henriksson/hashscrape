@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer')
 const $ = require('cheerio');
 const controller = require('./controller')
+const model = require('./model')
+var cron = require('node-cron');
 //select from nohash and findhash then add hash to main table and remove from nohash and add to nodownload
 async function GetMLinks(url) {
     return new Promise(resolve => {
@@ -44,5 +46,9 @@ async function startscrape1() {
     })
 
 }
-startscrape1()
 
+
+cron.schedule('*/20 * * * *', () => {
+    await model.run()
+    startscrape1()
+  });
