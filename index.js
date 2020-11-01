@@ -9,7 +9,6 @@ async function GetMLinks(url) {
 
         try {
             (async () => {
-                //console.log(await page.content())
 
                 $('a[href]', url).each(function () {
                     if ($(this).attr('href')[0] == "m") {
@@ -28,7 +27,7 @@ async function GetMLinks(url) {
 }
 async function startscrape1() {
 
-    puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] }).then(async browser => {
+    puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }).then(async browser => {
         const page = await browser.newPage()
         let linkarray = await controller.getnohash()
         console.table(await linkarray)
@@ -46,9 +45,7 @@ async function startscrape1() {
     })
 
 }
-
-
+startscrape1()
 cron.schedule('*/20 * * * *', () => {
-    await model.run()
     startscrape1()
   });
